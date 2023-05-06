@@ -61,7 +61,7 @@ CREATE TABLE `teams` (
   `ID_Team` int NOT NULL AUTO_INCREMENT,
   `Team_Name` varchar(50) NOT NULL,
   `Origin` varchar(50) DEFAULT NULL,
-  `Creation_Date` date DEFAULT NULL,
+  `Creation_Date` DATE DEFAULT NULL,
   PRIMARY KEY (`ID_Team`),
   UNIQUE KEY `Team_Name` (`Team_Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
