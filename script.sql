@@ -53,7 +53,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `UserName` (`UserName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 LOCK TABLES `users` WRITE;
-INSERT INTO `users` VALUES (1,'Admin',_binary 'j9{¬E:H\Ý\Æ_`Á','admin@leaguemanager.com',1),(2,'Juan',_binary '.tøqúövù®','juan@leaguemanager.com',2),(4,'Titos',_binary 'whP|±È?ø¾Hú','titos@kleague.com',3),(5,'Pepe Mel',_binary '(Â²*J%®D)·','pepemel@leaguemanager.com',2),(6,'AdriÃ¡n',_binary '1s0\Ø.\\5LN{P\"','adri@leagueManager.com',2),(7,'Lolito',_binary 'ýÿ	x\È3+]\rB','lolit0@leagueManager.com',2),(8,'Pirezmano',_binary '\å²ÕB !\Ð\îb\ÙC','pmano@leaguemanager.com',2);
+INSERT INTO `users` VALUES (1,'Admin',_binary 'j9{¬E:H\Ý\Æ_`Á','admin@leaguemanager.com',1),(2,'Juan',_binary '.tøqúövù®','juan@leaguemanager.com',2),(4,'Titos',_binary 'whP|±È?ø¾Hú','titos@kleague.com',3),(5,'Pepe Mel',_binary '(Â²*J%®D)·','pepemel@leaguemanager.com',2),(6,'Adrián',_binary '1s0\Ø.\\5LN{P\"','adri@leagueManager.com',2),(7,'Lolito',_binary 'ýÿ	x\È3+]\rB','lolit0@leagueManager.com',2),(8,'Pirezmano',_binary '\å²ÕB !\Ð\îb\ÙC','pmano@leaguemanager.com',2);
 UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `teams`;
