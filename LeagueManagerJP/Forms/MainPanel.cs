@@ -1,4 +1,5 @@
 ﻿using LeagueManagerJP.Forms.ControlForms;
+using LeagueManagerJP.Forms.ControlForms.PlayersForms;
 using LeagueManagerJP.Models;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,7 +23,19 @@ namespace LeagueManagerJP.Forms
         {
             InitializeComponent();
             userLog = user;
+            setControlFunctions();
         }
+
+        private void setControlFunctions()
+        {
+            this.Text = string.Empty;
+            this.ControlBox = false;
+        }
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
 
         private void ActivateButton(object btnSender)
         {
@@ -93,6 +107,46 @@ namespace LeagueManagerJP.Forms
                 formSel.Close();
             }
             lb_Title.Text = "HOME";
+        }
+
+        public static bool showConfirmDialog(String message) 
+        {
+            return MessageBox.Show(message, "Message", MessageBoxButtons.YesNo) == DialogResult.Yes;    
+        }
+
+        private void btn_players_Click(object sender, EventArgs e)
+        {
+            changeFormSel(new Players(), sender);
+        }
+
+        private void lb_Title_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if(WindowState == FormWindowState.Normal)
+            {
+                button1.Text = "o";
+                this.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                button1.Text = "O";
+                this.WindowState = FormWindowState.Normal;
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

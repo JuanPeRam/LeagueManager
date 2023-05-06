@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WF_Perretes.MySQL
+namespace MySQL
 {
-    class connMySQL
+    public class connMySQL
     {
         static MySqlCommand Query = new MySqlCommand();
         static MySqlConnection Conexion;
         static MySqlConnection ConnTransac = new MySqlConnection();
 
-        static string sConn = ";server=localhost;user id=root;database=leaguemanager;password=root";
+        static string sConn = ";server=leaguemanager.ci8wakk4khz4.eu-west-1.rds.amazonaws.com;user id=root;database=LeagueManager;password=pwdRoot18";
         MySqlTransaction tr;
 
         public static int EjecutarSQL(String sSQL)

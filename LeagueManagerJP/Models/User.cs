@@ -12,5 +12,10 @@ namespace LeagueManagerJP.Models
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Type { get; set; }
+
+        public override String ToString()
+        {
+            return UserName;
+        }
     }
 }
