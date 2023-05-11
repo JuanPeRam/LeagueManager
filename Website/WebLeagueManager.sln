@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLeagueManager", "WebLeagueManager\WebLeagueManager.csproj", "{56D7C827-BB3C-488B-B83E-42356727FE84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{56D7C827-BB3C-488B-B83E-42356727FE84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56D7C827-BB3C-488B-B83E-42356727FE84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56D7C827-BB3C-488B-B83E-42356727FE84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56D7C827-BB3C-488B-B83E-42356727FE84}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E4B590B-8AFF-47EC-82AB-8809F8C4DC7C}
+	EndGlobalSection
+EndGlobal

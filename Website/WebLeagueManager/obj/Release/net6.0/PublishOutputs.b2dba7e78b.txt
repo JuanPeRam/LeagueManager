@@ -1,0 +1,7 @@
+C:\Users\hr\AppData\Local\Temp\095525f7-724c-4292-bf94-f27a25dae084\WebLeagueManager.exe
+C:\Users\hr\AppData\Local\Temp\095525f7-724c-4292-bf94-f27a25dae084\appsettings.Development.json
+C:\Users\hr\AppData\Local\Temp\095525f7-724c-4292-bf94-f27a25dae084\appsettings.json
+C:\Users\hr\AppData\Local\Temp\095525f7-724c-4292-bf94-f27a25dae084\WebLeagueManager.dll
+C:\Users\hr\AppData\Local\Temp\095525f7-724c-4292-bf94-f27a25dae084\WebLeagueManager.deps.json
+C:\Users\hr\AppData\Local\Temp\095525f7-724c-4292-bf94-f27a25dae084\WebLeagueManager.runtimeconfig.json
+C:\Users\hr\AppData\Local\Temp\095525f7-724c-4292-bf94-f27a25dae084\WebLeagueManager.pdb

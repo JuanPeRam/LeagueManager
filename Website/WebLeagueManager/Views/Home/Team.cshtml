@@ -1,0 +1,35 @@
+﻿@model WebLeagueManager.Views.Home.TeamModel
+@{
+}
+<h2>@Model.currentTeam.Name</h2>
+@if (Model.lstPlayers.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Dorsal</th>
+                <th>Edad</th>
+                <th>Posicion(es)</th>
+                <th>Nacionalidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Player item in Model.lstPlayers)
+            {
+                <tr id="@item.Id">
+                    <td>@item.Name</td>
+                    <td>@item.Number</td>
+                    <td>@item.Age</td>
+                    <td>@item.Position</td>
+                    <td>@item.Nacionality</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+   <p>No hay jugadores inscritos actualmente en este equipo</p>
+}
+

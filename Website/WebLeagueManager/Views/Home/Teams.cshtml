@@ -1,0 +1,46 @@
+﻿@model WebLeagueManager.Views.Home.TeamsModel
+@{
+    
+}
+<br />
+<h2>List of Teams</h2>
+    <section class="teams_group">
+        @foreach (Team item in Model.lstTeams)
+        {
+            <a class="team_card" href="/Home/Team?id=@item.Id">
+                @item.Name <br />
+                - <br/>
+                @item.Origin
+            </a>
+        }
+    </section>
+
+
+
+<style>
+    .teams_group{
+        display: grid;
+        grid-gap: 2em;
+        padding: 3em;
+        grid-template-columns: repeat(auto-fit, 150px);
+        place-items: center;
+        place-content: center;
+    }
+    .team_card {
+        padding: 2em;
+        border-radius: .3em;
+        box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
+        text-align: center;
+        width: 150px;
+        height: 150px;
+    }
+
+    .team_card :hover{
+        background-color: black;
+    }
+    a{
+        text-decoration: none;
+        color: rgba(0,0,0);
+        display: inline;
+    }
+</style>
