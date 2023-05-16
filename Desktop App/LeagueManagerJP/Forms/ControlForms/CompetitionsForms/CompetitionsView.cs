@@ -28,35 +28,42 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
             {
                 UnableButtons();
             }
+
         }
 
         private void UnableButtons()
         {
-            btn_left.Enabled = false;
-            btn_right.Enabled = false;
+            lbl_advise.Text = "Competición ya comenzada";
             btn_start.Enabled = false;
             dgv_teams.Enabled = false;
             dgv_teamsParticipate.Enabled = false;
             btn_delete.Enabled = true;
             btn_reset.Enabled = true;
+            dtp_startDate.Visible = false;
+            lbl_date.Visible = false;
+            btn_right.Visible = false;
+            btn_left.Visible = false;
         }
 
         private void EnableButtons()
         {
-            btn_left.Enabled = !false;
-            btn_right.Enabled = !false;
-            btn_start.Enabled = !false;
-            dgv_teams.Enabled = !false;
-            dgv_teamsParticipate.Enabled = !false;
-            btn_delete.Enabled = !true;
-            btn_reset.Enabled = !true;
+            lbl_advise.Text = "Selecciona un equipo de la tabla izquierda y pulsa en la flecha derecha para anadirlo a la tabla de equipos participantes de la competición.";
+            btn_start.Enabled = true;
+            dgv_teams.Enabled = true;
+            dgv_teamsParticipate.Enabled = true;
+            btn_delete.Enabled = false;
+            btn_reset.Enabled = false;
+            dtp_startDate.Visible = true;
+            lbl_date.Visible = true;
+            btn_right.Visible = true;
+            btn_left.Visible = true;
         }
 
         private void InitializeTables()
         {
-            String condition = "WHERE ID_Team NOT IN (SELECT IFNULL(ID_Team,0) FROM participate WHERE ID_Competition = "+competition.Id+")";
+            String condition = "WHERE t.ID_Team NOT IN (SELECT IFNULL(ID_Team,0) FROM participate WHERE ID_Competition = "+competition.Id+")";
             dgv_teams.DataSource = ctrlTeams.ReadTeams(condition);
-            condition = "WHERE ID_Team IN (SELECT IFNULL(ID_Team,0) FROM participate WHERE ID_Competition = " + competition.Id + ")";
+            condition = "WHERE t.ID_Team IN (SELECT IFNULL(ID_Team,0) FROM participate WHERE ID_Competition = " + competition.Id + ")";
             dgv_teamsParticipate.DataSource = ctrlTeams.ReadTeams(condition);
             dgv_teams.Columns[0].Visible = false;
             dgv_teams.Columns[1].HeaderText =  "Equipos que no participan";
@@ -75,7 +82,14 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
 
         private void btn_right_Click(object sender, EventArgs e)
         {
-            if (teamSel == null) return;
+            if (teamSel == null)
+            {
+                if (dgv_teams.SelectedRows.Count > 0)
+                {
+                    teamSel = (Team)dgv_teams.CurrentRow.DataBoundItem;
+                }
+                else return;
+            }
             foreach (DataGridViewRow row in dgv_teamsParticipate.Rows)
             {
                 if (((Team)row.DataBoundItem).Id == teamSel.Id)
@@ -84,19 +98,27 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
                 }
             }
             ctrlCompetitions.insertParticipant(competition, teamSel);
-            foreach (DataGridViewRow row in dgv_teams.Rows)
-            {
-                if (((Team)row.DataBoundItem).Id == teamSel.Id)
-                {
-                    dgv_teams.Rows.Remove(row);
-                }
-            }
             InitializeTables();
+            dgv_teamsParticipate.ClearSelection();
+            if (dgv_teams.Rows.Count > 0)
+            {
+                dgv_teams.Rows[0].Selected = true;
+                dgv_teams.CurrentCell = dgv_teams.Rows[0].Cells[1];
+            }
+            teamSel = null;
         }
 
         private void btn_left_Click(object sender, EventArgs e)
         {
-            if(teamSel == null) return;
+            
+            if (teamSel == null)
+            {
+                if (dgv_teamsParticipate.SelectedRows.Count > 0)
+                {
+                    teamSel = (Team)dgv_teamsParticipate.CurrentRow.DataBoundItem;
+                }
+                else return;
+            }
             foreach(DataGridViewRow row in dgv_teams.Rows)
             {
                 if(((Team)row.DataBoundItem).Id == teamSel.Id)
@@ -105,21 +127,21 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
                 }
             }
             ctrlCompetitions.deleteParticipant(competition, teamSel);
-            foreach(DataGridViewRow row in dgv_teamsParticipate.Rows)
-            {
-                if (((Team)row.DataBoundItem).Id == teamSel.Id)
-                {
-                    dgv_teamsParticipate.Rows.Remove(row);
-                }
-            }
             InitializeTables();
+            dgv_teams.ClearSelection();
+            if (dgv_teamsParticipate.Rows.Count > 0)
+            {
+                dgv_teamsParticipate.Rows[0].Selected = true;
+                dgv_teamsParticipate.CurrentCell = dgv_teamsParticipate.Rows[0].Cells[1];
+            }
+            teamSel = null;
 
         }
 
         private void dgv_teamsParticipate_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if(dgv_teams.CurrentRow !=null) dgv_teams.CurrentRow.Selected = false;
-            if (dgv_teamsParticipate.SelectedRows != null)
+            if (dgv_teamsParticipate.Rows.Count>0)
             {
                 teamSel = (Team)dgv_teamsParticipate.CurrentRow.DataBoundItem;
             }
@@ -128,7 +150,7 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
         private void dgv_teams_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgv_teamsParticipate.CurrentRow != null) dgv_teamsParticipate.CurrentRow.Selected = false;
-            if (dgv_teams.SelectedRows != null)
+            if (dgv_teams.Rows.Count>0)
             {
                 teamSel = (Team)dgv_teams.CurrentRow.DataBoundItem;
             }
@@ -167,6 +189,11 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
         {
             List<Team> teams = new List<Team>();
             List<Game> games = new List<Game>();
+            if (dgv_teamsParticipate.Rows.Count < 2)
+            {
+                MessageBox.Show("Al menos 2 equipos deben participar en la competición");
+                return null;
+            }
             foreach(DataGridViewRow row in dgv_teamsParticipate.Rows)
             {
                 teams.Add((Team)row.DataBoundItem);
@@ -245,11 +272,12 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
                     Game game = new Game();
                     game.homeTeam = teams[j];
                     game.awayTeam = teams[teams.Count - j - 1];
-                    game.matchDay = "Matchday " + (i + 1);
+                    game.matchDay = "Jornada " + (i + 1);
                     game.competition = competition;
                     game.isPlayed = false;
                     game.GameDate = dateR;
                     games.Add(game);
+                    
                 }
 
                 // Rotate the teams in the list for the next round
@@ -276,6 +304,7 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
+            ctrlGames.deleteReports(competition.Id);
             ctrlGames.deleteGames(competition.Id);
             ctrlCompetitions.deleteParticipants(competition.Id);
             ctrlCompetitions.deleteCompetition(competition.Id);
@@ -286,10 +315,30 @@ namespace LeagueManagerJP.Forms.ControlForms.CompetitionsForms
         private void btn_reset_Click(object sender, EventArgs e)
         {
             ctrlCompetitions.stopCompetition(competition.Id);
+            ctrlGames.deleteReports(competition.Id);
             ctrlGames.deleteGames(competition.Id);
             parent.UpdateTable() ;
             EnableButtons();
         }
 
+        private void btn_right_MouseEnter(object sender, EventArgs e)
+        {
+            btn_right.Image = Properties.Resources.right_hover;
+        }
+
+        private void btn_left_MouseEnter(object sender, EventArgs e)
+        {
+            btn_left.Image = Properties.Resources.left_hover;
+        }
+
+        private void btn_left_MouseLeave(object sender, EventArgs e)
+        {
+            btn_left.Image = Properties.Resources.left_arrow64;
+        }
+
+        private void btn_right_MouseLeave(object sender, EventArgs e)
+        {
+            btn_right.Image= Properties.Resources.right_arrow67;
+        }
     }
 }

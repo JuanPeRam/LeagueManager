@@ -26,17 +26,15 @@ namespace LeagueManagerJP
             {
                 if (userLog.Type.Equals("Administrator"))
                 {
-                    MainPanel menu = new MainPanel(userLog);
+                    MainPanel menu = new MainPanel(userLog,this);
                     menu.Show();
                 }
                 else if (userLog.Type.Equals("Trainer"))
                 {
-                    String condition = "WHERE ID_Coach = "+userLog.Id;
-                    BindingSource bsTeam = ctrlTeams.ReadTeams(condition);
-                    Team team = bsTeam.DataSource as Team;
+                    Team team = ctrlUsers.readCurrentTeam(userLog);
                     if(team != null)
                     {
-                        TeamView tv = new TeamView(team);
+                        TeamView tv = new TeamView(team,this);
                         tv.Show();
                     }
                     else
@@ -48,7 +46,7 @@ namespace LeagueManagerJP
                 }
                 else if (userLog.Type.Equals("Referee"))
                 {
-                    Matches matches = new Matches(userLog);
+                    Matches matches = new Matches(userLog,this);
                     matches.Show();
                 }
                 this.Hide();

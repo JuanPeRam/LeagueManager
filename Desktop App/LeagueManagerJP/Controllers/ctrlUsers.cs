@@ -46,7 +46,7 @@ namespace LeagueManagerJP.Controllers
             String query = "SELECT ID_User, UserName, Email, NameType FROM users, userstype WHERE UserType = ID_UserType";
             if (condition != null)
             {
-                query += " "+condition;
+                query += " " + condition;
             }
             DataTable dt = connMySQL.ObtenerDatosSQL(query);
             ObservableCollection<User> lstUsers = new ObservableCollection<User>();
@@ -65,13 +65,13 @@ namespace LeagueManagerJP.Controllers
 
         public static BindingSource readNonTeamTrainers()
         {
-            String condition = " AND UserType = 2 AND ID_User NOT IN (SELECT ID_User FROM teamsManager WHERE ID_Period IN (SELECT ID_Period from periods WHERE Start_Date < NOW() AND isnull(End_Date)) )";
+            String condition = " AND UserType = 2 AND ID_User NOT IN (SELECT ID_User FROM teamsManager WHERE " + ctrlPeriods.noEndDate + " )";
             return readUsers(condition);
         }
 
         public static User readUser(int id)
         {
-            string query = "SELECT ID_User, UserName, Email, NameType FROM users,userstype WHERE ID_User =" + id+ " AND UserType = ID_UserType";
+            string query = "SELECT ID_User, UserName, Email, NameType FROM users,userstype WHERE ID_User =" + id + " AND UserType = ID_UserType";
             User user = new User();
             DataTable dt = connMySQL.ObtenerDatosSQL(query);
             foreach (DataRow row in dt.Rows)
@@ -87,22 +87,22 @@ namespace LeagueManagerJP.Controllers
 
         public static void ModifyUser(User user)
         {
-            String query = "UPDATE users SET UserName = '"+user.UserName+"', Email = '"+user.Email+"' WHERE ID_User = "+user.Id;
+            String query = "UPDATE users SET UserName = '" + user.UserName + "', Email = '" + user.Email + "' WHERE ID_User = " + user.Id;
             connMySQL con = new connMySQL();
             int res = con.AbrirTransaccion();
-            if(res == -1)
+            if (res == -1)
             {
                 MessageBox.Show("Ha ocurrido un error al abrir la transacción");
                 return;
             }
             res = con.EjecutarSQL_EnTransac(query);
-            if(res == -1)
+            if (res == -1)
             {
                 MessageBox.Show("Ha ocurrido un error al modificar los datos");
                 return;
             }
             res = con.CerrarTransaccionCorrecta();
-            if(res == -1)
+            if (res == -1)
             {
                 MessageBox.Show("Ha ocurrido un error al cerrar la transacción");
                 return;
@@ -112,8 +112,8 @@ namespace LeagueManagerJP.Controllers
 
         public static void InsertUser(User user, string password)
         {
-            String query = "INSERT INTO users VALUES ( null,'"+user.UserName+"'" +
-                ", aes_encrypt('"+password+"','admnpd12'), '"+user.Email+ "', (SELECT ID_UserType FROM userstype WHERE NameType = '"+user.Type+"'))";
+            String query = "INSERT INTO users VALUES ( null,'" + user.UserName + "'" +
+                ", aes_encrypt('" + password + "','admnpd12'), '" + user.Email + "', (SELECT ID_UserType FROM userstype WHERE NameType = '" + user.Type + "'))";
             connMySQL con = new connMySQL();
             int res = con.AbrirTransaccion();
             if (res == -1)
@@ -127,7 +127,7 @@ namespace LeagueManagerJP.Controllers
                 MessageBox.Show("Ha ocurrido un error al insertar los datos");
                 return;
             }
-            
+
             query = "SELECT MAX(ID_User) FROM users";
             MySqlDataReader reader = con.ObtenerDatosSQL_EnTransac(query);
             if (reader != null)
@@ -150,7 +150,7 @@ namespace LeagueManagerJP.Controllers
         public static void DeleteUser(int id)
         {
             String query = "DELETE FROM users WHERE ID_User = " + id;
-            if(connMySQL.EjecutarSQL(query) == -1)
+            if (connMySQL.EjecutarSQL(query) == -1)
             {
                 MessageBox.Show("Ha ocurrido un error al eliminar los datos");
             }
@@ -159,7 +159,62 @@ namespace LeagueManagerJP.Controllers
                 MessageBox.Show("Datos eliminados con éxito");
             }
         }
-    }
 
-    
+        public static bool endTrainerPeriod(User user)
+        {
+            String query = "SELECT ID_Period " +
+                "FROM teamsManager " +
+                "WHERE ID_User = " + user.Id + " AND ID_Period IN " +
+                "(SELECT ID_Period " +
+                "FROM periods " +
+                "WHERE ISNULL(End_Date))";
+            DataTable dtPeriod = connMySQL.ObtenerDatosSQL(query);
+            foreach (DataRow row in dtPeriod.Rows)
+            {
+                int id_period = (int)row[0];
+                return ctrlPeriods.endPeriod(id_period);
+            }
+            return false;
+
+        }
+
+        public static bool startTrainerPeriod(Team team)
+        {
+            connMySQL con = new connMySQL();
+            int res = con.AbrirTransaccion();
+            if (res == -1) return false;
+            int id_period = ctrlPeriods.insertPeriodinTrans(con,null, false);
+            if (id_period == 0) return false;
+            String query = "INSERT INTO teamsManager VALUES("+team.Trainer.Id+","+team.Id+","+id_period+")";
+            res = con.EjecutarSQL_EnTransac(query);
+            if (res == -1) return false;
+            res = con.CerrarTransaccionCorrecta();
+            if (res == -1) return false;
+            return true;
+        }
+
+        public static Team readCurrentTeam(User user)
+        {
+            String query = "SELECT t.ID_Team, t.Team_Name, t.Origin, t.Creation_Date " +
+                "FROM teams t " +
+                "WHERE ID_Team = " +
+                "(SELECT ID_Team " +
+                "FROM teamsManager " +
+                "WHERE ID_User = "+user.Id+" AND " +
+                ctrlPeriods.noEndDate+")";
+            DataTable dtTeam = connMySQL.ObtenerDatosSQL(query);
+            foreach(DataRow row in dtTeam.Rows)
+            {
+                Team team = new Team();
+                team.Id = (int)row["ID_Team"];
+                team.Trainer = user;
+                team.Name = (string)row["Team_Name"];
+                team.CreationDate = (DateTime)row["Creation_Date"];
+                team.Origin = (string)row["Origin"];
+                return team;
+            }
+            return null;
+        }
+
+    }
 }

@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TeamView));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
@@ -58,6 +59,10 @@
             this.label11 = new System.Windows.Forms.Label();
             this.spn_number = new System.Windows.Forms.NumericUpDown();
             this.btn_delete = new System.Windows.Forms.Button();
+            this.btn_endContract = new System.Windows.Forms.Button();
+            this.cmb_trainers = new System.Windows.Forms.ComboBox();
+            this.btn_accept = new System.Windows.Forms.Button();
+            this.btn_logout = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -230,23 +235,23 @@
             this.dgv_players.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_players.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_players.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_players.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_players.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_players.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(26)))), ((int)(((byte)(102)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_players.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(26)))), ((int)(((byte)(102)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_players.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_players.Location = new System.Drawing.Point(12, 255);
             this.dgv_players.Name = "dgv_players";
             this.dgv_players.ReadOnly = true;
@@ -254,7 +259,7 @@
             this.dgv_players.RowHeadersWidth = 62;
             this.dgv_players.RowTemplate.Height = 28;
             this.dgv_players.Size = new System.Drawing.Size(621, 289);
-            this.dgv_players.TabIndex = 1;
+            this.dgv_players.TabIndex = 50;
             this.dgv_players.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label5
@@ -324,7 +329,7 @@
             this.spn_age.Location = new System.Drawing.Point(654, 438);
             this.spn_age.Name = "spn_age";
             this.spn_age.Size = new System.Drawing.Size(65, 22);
-            this.spn_age.TabIndex = 7;
+            this.spn_age.TabIndex = 3;
             this.spn_age.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tb_positions
@@ -332,21 +337,21 @@
             this.tb_positions.Location = new System.Drawing.Point(654, 505);
             this.tb_positions.Name = "tb_positions";
             this.tb_positions.Size = new System.Drawing.Size(138, 26);
-            this.tb_positions.TabIndex = 8;
+            this.tb_positions.TabIndex = 4;
             // 
             // tb_origin
             // 
             this.tb_origin.Location = new System.Drawing.Point(654, 370);
             this.tb_origin.Name = "tb_origin";
             this.tb_origin.Size = new System.Drawing.Size(138, 26);
-            this.tb_origin.TabIndex = 9;
+            this.tb_origin.TabIndex = 2;
             // 
             // tb_name
             // 
             this.tb_name.Location = new System.Drawing.Point(654, 301);
             this.tb_name.Name = "tb_name";
             this.tb_name.Size = new System.Drawing.Size(138, 26);
-            this.tb_name.TabIndex = 10;
+            this.tb_name.TabIndex = 1;
             // 
             // btn_modify
             // 
@@ -357,7 +362,7 @@
             this.btn_modify.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_modify.Name = "btn_modify";
             this.btn_modify.Size = new System.Drawing.Size(62, 48);
-            this.btn_modify.TabIndex = 11;
+            this.btn_modify.TabIndex = 6;
             this.btn_modify.UseVisualStyleBackColor = true;
             this.btn_modify.Click += new System.EventHandler(this.btn_modify_Click);
             // 
@@ -370,7 +375,7 @@
             this.btn_cl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_cl.Name = "btn_cl";
             this.btn_cl.Size = new System.Drawing.Size(62, 48);
-            this.btn_cl.TabIndex = 12;
+            this.btn_cl.TabIndex = 8;
             this.btn_cl.UseVisualStyleBackColor = true;
             this.btn_cl.Click += new System.EventHandler(this.btn_cl_Click);
             // 
@@ -393,7 +398,7 @@
             this.spn_number.Location = new System.Drawing.Point(846, 505);
             this.spn_number.Name = "spn_number";
             this.spn_number.Size = new System.Drawing.Size(65, 22);
-            this.spn_number.TabIndex = 16;
+            this.spn_number.TabIndex = 5;
             this.spn_number.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btn_delete
@@ -405,9 +410,57 @@
             this.btn_delete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_delete.Name = "btn_delete";
             this.btn_delete.Size = new System.Drawing.Size(62, 48);
-            this.btn_delete.TabIndex = 17;
+            this.btn_delete.TabIndex = 7;
             this.btn_delete.UseVisualStyleBackColor = true;
             this.btn_delete.Click += new System.EventHandler(this.btn_delete_Click);
+            // 
+            // btn_endContract
+            // 
+            this.btn_endContract.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_endContract.Location = new System.Drawing.Point(800, 163);
+            this.btn_endContract.Name = "btn_endContract";
+            this.btn_endContract.Size = new System.Drawing.Size(111, 53);
+            this.btn_endContract.TabIndex = 51;
+            this.btn_endContract.Text = "Finalizar Contrato";
+            this.btn_endContract.UseVisualStyleBackColor = true;
+            this.btn_endContract.Click += new System.EventHandler(this.btn_endContract_Click);
+            // 
+            // cmb_trainers
+            // 
+            this.cmb_trainers.FormattingEnabled = true;
+            this.cmb_trainers.Location = new System.Drawing.Point(732, 173);
+            this.cmb_trainers.Name = "cmb_trainers";
+            this.cmb_trainers.Size = new System.Drawing.Size(121, 28);
+            this.cmb_trainers.TabIndex = 52;
+            this.cmb_trainers.Visible = false;
+            // 
+            // btn_accept
+            // 
+            this.btn_accept.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_accept.Location = new System.Drawing.Point(868, 171);
+            this.btn_accept.Name = "btn_accept";
+            this.btn_accept.Size = new System.Drawing.Size(80, 34);
+            this.btn_accept.TabIndex = 53;
+            this.btn_accept.Text = "Aceptar";
+            this.btn_accept.UseVisualStyleBackColor = true;
+            this.btn_accept.Visible = false;
+            this.btn_accept.Click += new System.EventHandler(this.btn_accept_Click);
+            // 
+            // btn_logout
+            // 
+            this.btn_logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_logout.BackColor = System.Drawing.Color.Indigo;
+            this.btn_logout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_logout.Font = new System.Drawing.Font("Segoe UI Black", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_logout.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_logout.Location = new System.Drawing.Point(477, 178);
+            this.btn_logout.Name = "btn_logout";
+            this.btn_logout.Size = new System.Drawing.Size(106, 38);
+            this.btn_logout.TabIndex = 54;
+            this.btn_logout.Text = "Cerrar Sesión";
+            this.btn_logout.UseVisualStyleBackColor = false;
+            this.btn_logout.Visible = false;
+            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
             // 
             // TeamView
             // 
@@ -415,6 +468,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::LeagueManagerJP.Properties.Resources.fondoLogin;
             this.ClientSize = new System.Drawing.Size(971, 566);
+            this.Controls.Add(this.btn_logout);
+            this.Controls.Add(this.btn_accept);
+            this.Controls.Add(this.cmb_trainers);
+            this.Controls.Add(this.btn_endContract);
             this.Controls.Add(this.btn_delete);
             this.Controls.Add(this.spn_number);
             this.Controls.Add(this.label11);
@@ -432,8 +489,9 @@
             this.Controls.Add(this.dgv_players);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TeamView";
-            this.Text = "TeamView";
+            this.Text = "Datos del equipo";
             this.panel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -477,5 +535,9 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown spn_number;
         private System.Windows.Forms.Button btn_delete;
+        private System.Windows.Forms.Button btn_endContract;
+        private System.Windows.Forms.ComboBox cmb_trainers;
+        private System.Windows.Forms.Button btn_accept;
+        private System.Windows.Forms.Button btn_logout;
     }
 }

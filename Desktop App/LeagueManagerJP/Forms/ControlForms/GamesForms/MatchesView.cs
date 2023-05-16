@@ -57,8 +57,8 @@ namespace LeagueManagerJP.Forms.ControlForms.GamesForms
             game.awayTeam.Trainer = ctrlTeams.readCurrentTrainer(game.awayTeam.Id);
             lbl_homeTeam.Text = game.homeTeam.Name;
             lbl_awayTeam.Text = game.awayTeam.Name;
-            lbl_homeTrainer.Text = game.homeTeam.Trainer.UserName;
-            lbl_awayTrainer.Text = game.awayTeam.Trainer.UserName;
+            lbl_homeTrainer.Text = game.homeTeam.Trainer!=null ? game.homeTeam.Trainer.UserName:"";
+            lbl_awayTrainer.Text = game.awayTeam.Trainer!=null ? game.awayTeam.Trainer.UserName:"";
             this.game = game;
             this.parent = parent;
         }
@@ -114,6 +114,14 @@ namespace LeagueManagerJP.Forms.ControlForms.GamesForms
                     MessageBox.Show("Al menos 1 jugador de cada equipo debe haber jugado el partido");
                     return;
                 }
+                if(game.competition.Type.Name == "Tournament")
+                {
+                    if (checkDraw(reports))
+                    {
+                        MessageBox.Show("No puede haber un empate en una ronda eliminatoria");
+                        return;
+                    }
+                }
                 if(ctrlReports.InsertReports(reports))
                 {
                     ctrlGames.closeGame(game.Id);
@@ -127,6 +135,34 @@ namespace LeagueManagerJP.Forms.ControlForms.GamesForms
                 }
 
             }
+        }
+
+        private bool checkDraw(List<Report> reports)
+        {
+            int home_goals = 0;
+            int away_goals = 0;
+            bool start = true;
+            Team homeTeam = null;
+            foreach (Report report in reports)
+            {
+                if (start)
+                {
+                    homeTeam = report.player.team;
+                    home_goals += report.goals;
+                    start = false;
+                    continue;
+                }
+                if (report.player.team.Id == homeTeam.Id)
+                {
+                    home_goals += report.goals;
+                }
+                else away_goals += report.goals;
+            }
+            if (home_goals == away_goals)
+            {
+                return true;
+            }
+            return false;
         }
 
         private User getCurrentItem()

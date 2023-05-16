@@ -14,6 +14,7 @@ namespace LeagueManagerJP.Forms.ControlForms.PlayersForms
 {
     public partial class Players : Form
     {
+        Player playerSel;
         public Players()
         {
             InitializeComponent();
@@ -28,6 +29,28 @@ namespace LeagueManagerJP.Forms.ControlForms.PlayersForms
             team.Name = "Sin equipo";
             ((BindingSource)cmb_teams.DataSource).Add(team);
         }
+
+        private void setComboSel(Team team)
+        {
+            for(int i = 0; i < cmb_teams.Items.Count; i++)
+            {
+                if(team.Id == ((Team)cmb_teams.Items[i]).Id)
+                {
+                    cmb_teams.SelectedIndex = i;
+                }
+            }
+        }
+
+        private void setComboNonTeam()
+        {
+            for (int i = 0; i < cmb_teams.Items.Count; i++)
+            {
+                if ("Sin equipo" == ((Team)cmb_teams.Items[i]).Name)
+                {
+                    cmb_teams.SelectedIndex = i;
+                }
+            }
+        }
         private void InitializeTable()
         {
             dgv_players.DataSource = ctrlPlayers.readNonTeamPlayers();
@@ -40,9 +63,28 @@ namespace LeagueManagerJP.Forms.ControlForms.PlayersForms
             dgv_players.Columns[6].HeaderText = "Dorsal";
         }
 
+        public void UpdateTable(Team team)
+        {
+            if (team == null)
+            {
+                dgv_players.DataSource = ctrlPlayers.readNonTeamPlayers();
+                setComboNonTeam();
+            }
+            else
+            {
+                dgv_players.DataSource = ctrlPlayers.readPlayersByTeam(team);
+                setComboSel(team);
+            }
+        }
+
         private void dgv_players_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            if(dgv_players.SelectedRows != null)
+            {
+                playerSel = (Player)dgv_players.CurrentRow.DataBoundItem;
+                PlayersView playerview = new PlayersView(playerSel,this);
+                playerview.Show();
+            }
         }
 
         private void cmb_teams_SelectedIndexChanged(object sender, EventArgs e)
@@ -57,6 +99,12 @@ namespace LeagueManagerJP.Forms.ControlForms.PlayersForms
                 }
                 dgv_players.DataSource = ctrlPlayers.readPlayersByTeam(selectedTeam);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PlayersView psview = new PlayersView(this);
+            psview.Show();
         }
     }
 }

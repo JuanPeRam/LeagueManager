@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.Usuario = new System.Windows.Forms.Label();
             this.tb_user = new System.Windows.Forms.TextBox();
             this.tb_pwd = new System.Windows.Forms.TextBox();
@@ -178,6 +179,7 @@
             this.Controls.Add(this.tb_user);
             this.Controls.Add(this.Usuario);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Login";
             this.Text = "Login";

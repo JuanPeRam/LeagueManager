@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MatchesView));
             this.dgv_homeTeam = new System.Windows.Forms.DataGridView();
             this.dgv_AwayTeam = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
@@ -125,12 +126,13 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.Location = new System.Drawing.Point(245, 9);
+            this.label1.Location = new System.Drawing.Point(32, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(524, 42);
+            this.label1.Size = new System.Drawing.Size(880, 42);
             this.label1.TabIndex = 3;
-            this.label1.Text = "Rellena ambas tablas con los datos de cada jugador en el partido. \r\nLas sanciones" +
-    " se deben escribir con la letra A para amarillas y R para rojas.\r\n";
+            this.label1.Text = "Rellena ambas tablas con los datos de cada jugador en el partido. Las sanciones s" +
+    "e deben escribir con la letra A para amarillas \r\ny R para rojas. Marca la casill" +
+    "a si el jugador disputó el partido.\r\n";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
@@ -155,10 +157,11 @@
             this.cmb_referees.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmb_referees.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_referees.FormattingEnabled = true;
             this.cmb_referees.Location = new System.Drawing.Point(442, 103);
             this.cmb_referees.Name = "cmb_referees";
-            this.cmb_referees.Size = new System.Drawing.Size(121, 28);
+            this.cmb_referees.Size = new System.Drawing.Size(121, 29);
             this.cmb_referees.TabIndex = 5;
             // 
             // label2
@@ -277,8 +280,9 @@
             this.Controls.Add(this.dgv_AwayTeam);
             this.Controls.Add(this.dgv_homeTeam);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MatchesView";
-            this.Text = "MatchesView";
+            this.Text = "Acta del partido";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_homeTeam)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AwayTeam)).EndInit();
             this.ResumeLayout(false);

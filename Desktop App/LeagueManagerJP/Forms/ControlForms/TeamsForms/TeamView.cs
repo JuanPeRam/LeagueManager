@@ -10,11 +10,23 @@ namespace LeagueManagerJP.Forms.ControlForms
     {
         Team team;
         Player playerSel;
+        User trainer;
+        Login parent;
         public TeamView(Team team)
         {
             InitializeComponent();
             this.team = team;
             InitializeData();
+            if (team.Trainer == null) btn_endContract.Text = "Establecer entrenador";
+        }
+
+        public TeamView(Team team, Login parent)
+        {
+            InitializeComponent();
+            this.team = team;
+            InitializeData();
+            this.parent = parent;
+            btn_logout.Visible = true;
         }
 
         private void InitializeData()
@@ -154,6 +166,63 @@ namespace LeagueManagerJP.Forms.ControlForms
                 MessageBox.Show("Ha ocurrido un error en el borrado de datos");
             }
             
+        }
+
+        private void btn_endContract_Click(object sender, EventArgs e)
+        {
+            if(team.Trainer == null)
+            {
+                cmb_trainers.Visible = true;
+                cmb_trainers.DataSource = ctrlUsers.readNonTeamTrainers();
+                btn_accept.Visible = true;
+                btn_endContract.Visible = false;
+            }
+            else
+            {
+                if (MainPanel.showConfirmDialog("El entrenador " + team.Trainer.UserName + " " +
+                " dejará de ser entrenador del " + team.Name + ", estás seguro?"))
+                {
+                    if (ctrlUsers.endTrainerPeriod(team.Trainer))
+                    {
+                        lbl_trainer.Text = "No Establecido";
+                        team.Trainer = null;
+                        MessageBox.Show("Entrenador eliminado");
+                        if (trainer != null) Application.Exit();
+                        btn_endContract.Text = "Establecer Entrenador";
+                    }
+                }
+            }
+            
+            
+        }
+
+        private void btn_accept_Click(object sender, EventArgs e)
+        {
+            User trainer = (User)cmb_trainers.SelectedItem;
+            if(trainer != null)
+            {
+                team.Trainer = trainer;
+                if (ctrlUsers.startTrainerPeriod(team))
+                {
+                    btn_accept.Visible = false;
+                    cmb_trainers.Visible = false;
+                    btn_endContract.Visible = true;
+                    btn_endContract.Text = "Finalizar Contrato";
+                    MessageBox.Show("Entrenador establecido");
+                    lbl_trainer.Text = team.Trainer.UserName;
+                }
+                else MessageBox.Show("No se ha podido establecer al nuevo entrenador");
+            }
+            else
+            {
+                MessageBox.Show("Debes escoger un entrenador");
+            }
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            parent.Show();
         }
     }
 }

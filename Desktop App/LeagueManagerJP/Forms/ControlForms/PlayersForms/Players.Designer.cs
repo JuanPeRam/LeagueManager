@@ -30,9 +30,11 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Players));
             this.dgv_players = new System.Windows.Forms.DataGridView();
             this.cmb_teams = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_new = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_players)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,16 +100,29 @@
             this.label1.Text = "Equipo";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btn_new
+            // 
+            this.btn_new.Font = new System.Drawing.Font("Segoe UI Black", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_new.Location = new System.Drawing.Point(645, 64);
+            this.btn_new.Name = "btn_new";
+            this.btn_new.Size = new System.Drawing.Size(97, 42);
+            this.btn_new.TabIndex = 5;
+            this.btn_new.Text = "Nuevo";
+            this.btn_new.UseVisualStyleBackColor = true;
+            this.btn_new.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Players
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btn_new);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmb_teams);
             this.Controls.Add(this.dgv_players);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Players";
-            this.Text = "Players";
+            this.Text = "Jugadores";
             ((System.ComponentModel.ISupportInitialize)(this.dgv_players)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -119,5 +134,6 @@
         private System.Windows.Forms.DataGridView dgv_players;
         private System.Windows.Forms.ComboBox cmb_teams;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_new;
     }
 }

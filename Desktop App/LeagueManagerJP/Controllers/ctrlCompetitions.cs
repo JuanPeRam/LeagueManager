@@ -19,7 +19,11 @@ namespace LeagueManagerJP.Controllers
 
         public static BindingSource ReadCompetitions(String condition)
         {
-            String query = "SELECT ID_Competition, Competition_Name, ID_Period, Competition_Type FROM competitions "+condition;
+            String query = "SELECT ID_Competition, Competition_Name, c.ID_Period,p.Start_Date,p.End_Date, ct.ID_Type, TypeName " +
+                "FROM competitions c " +
+                "LEFT JOIN periods p ON c.ID_Period = p.ID_Period " +
+                "LEFT JOIN competitionstype ct ON c.Competition_Type = ct.ID_Type " +
+                ""+condition;
             DataTable dt = connMySQL.ObtenerDatosSQL(query);
             ObservableCollection<Competition> lstCompetition = new ObservableCollection<Competition>();
             BindingSource bsCompetitions = new BindingSource { DataSource = lstCompetition };
@@ -28,8 +32,21 @@ namespace LeagueManagerJP.Controllers
                 Competition competition = new Competition();
                 competition.Id = (int)row["ID_Competition"];
                 competition.Name = (string)row["Competition_Name"];
-                competition.period = ctrlPeriods.readPeriod((int)row["ID_Period"]);
-                competition.Type = readType((int)row["Competition_Type"]);
+                Period period = new Period();
+                period.Id = (int)row["ID_Period"];
+                var startDate = row["Start_Date"] == DBNull.Value ?
+                                        null :
+                                   (DateTime?)Convert.ToDateTime(row["Start_Date"]);
+                var endDate = row["End_Date"] == DBNull.Value ?
+                                    null :
+                               (DateTime?)Convert.ToDateTime(row["End_Date"]);
+                period.StartDate = startDate == null ? DateTime.MinValue : startDate.Value;
+                period.EndDate = endDate == null ? DateTime.MinValue : endDate.Value;
+                competition.period = period;
+                CompetitionType type = new CompetitionType();
+                type.ID = (int)row["ID_Type"];
+                type.Name = (string)row["TypeName"];
+                competition.Type = type;
                 bsCompetitions.Add(competition);
             }
             return bsCompetitions;

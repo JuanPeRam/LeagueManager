@@ -27,6 +27,9 @@ namespace LeagueManagerJP.Forms.ControlForms
         {
             dgv_users.DataSource = ctrlUsers.readUsers(null);
             dgv_users.Columns[0].Visible = false;
+            dgv_users.Columns[1].HeaderText = "Nombre";
+            dgv_users.Columns[2].HeaderText = "Email";
+            dgv_users.Columns[3].HeaderText = "Tipo";
             dgv_users.BorderStyle = BorderStyle.None;
             dgv_users.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
             dgv_users.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -195,9 +198,12 @@ namespace LeagueManagerJP.Forms.ControlForms
                     MessageBox.Show("No puedes eliminar al usuario principal");
                     return;
                 }
-                ctrlUsers.DeleteUser(userSel.Id);
-                UpdateTable();
-                clear();
+                if (MainPanel.showConfirmDialog("Estás seguro de que quieres eliminar al usuario "+userSel.UserName+"?"))
+                {
+                    ctrlUsers.DeleteUser(userSel.Id);
+                    UpdateTable();
+                    clear();
+                }
             }
         }
     }

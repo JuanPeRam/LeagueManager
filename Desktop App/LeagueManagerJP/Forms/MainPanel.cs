@@ -19,11 +19,13 @@ namespace LeagueManagerJP.Forms
         User userLog;
         Button currentButton;
         Form formSel;
-        public MainPanel(User user)
+        Login parent;
+        public MainPanel(User user, Login parent)
         {
             InitializeComponent();
             userLog = user;
             setControlFunctions();
+            this.parent = parent;
         }
 
         private void setControlFunctions()
@@ -147,6 +149,12 @@ namespace LeagueManagerJP.Forms
         private void button2_Click_1(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            parent.Show();
         }
     }
 }

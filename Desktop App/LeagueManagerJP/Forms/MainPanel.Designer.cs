@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPanel));
             this.panelMenu = new System.Windows.Forms.Panel();
             this.btn_players = new System.Windows.Forms.Button();
             this.btnUsers = new System.Windows.Forms.Button();
@@ -44,6 +45,7 @@
             this.btn_reset = new System.Windows.Forms.Button();
             this.panelOption = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btn_logout = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.panelLogo.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -294,6 +296,7 @@
             // panelOption
             // 
             this.panelOption.AutoSize = true;
+            this.panelOption.Controls.Add(this.btn_logout);
             this.panelOption.Controls.Add(this.pictureBox1);
             this.panelOption.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelOption.Location = new System.Drawing.Point(330, 123);
@@ -314,6 +317,21 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // btn_logout
+            // 
+            this.btn_logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_logout.BackColor = System.Drawing.Color.Indigo;
+            this.btn_logout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_logout.Font = new System.Drawing.Font("Segoe UI Black", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_logout.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_logout.Location = new System.Drawing.Point(875, 32);
+            this.btn_logout.Name = "btn_logout";
+            this.btn_logout.Size = new System.Drawing.Size(106, 38);
+            this.btn_logout.TabIndex = 5;
+            this.btn_logout.Text = "Cerrar Sesión";
+            this.btn_logout.UseVisualStyleBackColor = false;
+            this.btn_logout.Click += new System.EventHandler(this.btn_logout_Click);
+            // 
             // MainPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -322,9 +340,10 @@
             this.Controls.Add(this.panelOption);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainPanel";
-            this.Text = "MainMenu";
+            this.Text = "League Manager";
             this.panelMenu.ResumeLayout(false);
             this.panelLogo.ResumeLayout(false);
             this.panelLogo.PerformLayout();
@@ -355,5 +374,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_close;
+        private System.Windows.Forms.Button btn_logout;
     }
 }

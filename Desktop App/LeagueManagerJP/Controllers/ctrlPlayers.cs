@@ -40,7 +40,10 @@ namespace LeagueManagerJP.Controllers
         }
         public static Team readCurrentTeam(int id_player)
         {
-            String query = "SELECT t.ID_Team, Team_Name from teams t, teamplayers tp  WHERE t.ID_Team = tp.ID_Team AND ID_Player = " + id_player + " AND " + ctrlPeriods.noEndDate;
+            String query = "SELECT t.ID_Team, Team_Name " +
+                "from teams t, teamplayers tp  " +
+                "WHERE t.ID_Team = tp.ID_Team AND ID_Player = " + id_player + " " +
+                "AND " + ctrlPeriods.noEndDate;
             DataTable dtTeam = connMySQL.ObtenerDatosSQL(query);
             if (dtTeam.Rows.Count > 0)
             {
@@ -104,8 +107,21 @@ namespace LeagueManagerJP.Controllers
                 "'" + player.Name + "'," + player.Age + ",'" + player.Position + "','" + player.Nacionality + "')";
             if (player.team == null)
             {
-                if (connMySQL.EjecutarSQL(query) == -1) return false;
-                else return true;
+                connMySQL con = new connMySQL();
+                int res = con.AbrirTransaccion();
+                if (res == -1) return false;
+                res = con.EjecutarSQL_EnTransac(query);
+                if (res == -1) return false;
+                int id_player = getLastPlayerInTrans(con);
+                if (id_player == 0)
+                {
+                    con.CerrarTransaccionErronea();
+                    return false;
+                }
+                player.Id = id_player;
+                res = con.CerrarTransaccionCorrecta();
+                if (res == -1) return false;
+                return true;
             }
             else
             {
@@ -161,16 +177,39 @@ namespace LeagueManagerJP.Controllers
         public static bool signPlayer(Player player)
         {
             connMySQL con = new connMySQL();
+            int res = con.AbrirTransaccion();
+            if (res == -1) return false;
             int id_period = ctrlPeriods.insertPeriodinTrans(con, null,false);
-            if (id_period == 0) return false;
+            if (id_period == 0)
+            {
+                con.CerrarTransaccionErronea();
+                return false;
+            }
             String query = "INSERT INTO teamplayers VALUES (" + player.team.Id + "," + player.Id + "," + id_period + ")";
-            if (con.EjecutarSQL_EnTransac(query) == -1) return false;
-            return true;
+            if (con.EjecutarSQL_EnTransac(query) == -1) 
+            {
+                return false;
+            }
+            else
+            {
+                res = con.CerrarTransaccionCorrecta();
+                if (res == -1) return false;
+                return true;
+            }
+            
         }
 
         public static bool deletePlayer(Player player)
         {
-            String query = "SELECT ID_Period FROM teamplayers WHERE ID_Player = "+player.Id+" AND ID_Team = "+player.team.Id+" AND ID_Period IN (SELECT ID_Period FROM periods WHERE isnull(End_Date))";
+            //Checking if the player has played a game of a Date greater than now
+            String checkquery = "SELECT NOW() < (SELECT MAX(Game_Date) FROM games WHERE ID_Game IN (SELECT ID_Game FROM reports WHERE ID_Player = "+player.Id+"))";
+            DataTable dtcheck = connMySQL.ObtenerDatosSQL(checkquery);
+            foreach(DataRow row in dtcheck.Rows)
+            {
+                if (row[0].ToString() == "1") return false;
+            }
+            //Getting the Period Id to end the "contract"
+            String query = "SELECT ID_Period FROM teamplayers WHERE ID_Player = "+player.Id+" AND ID_Team = "+player.team.Id+" AND "+ctrlPeriods.noEndDate;
             DataTable dtPeriod = connMySQL.ObtenerDatosSQL(query);
             if (dtPeriod.Rows.Count > 0)
             {

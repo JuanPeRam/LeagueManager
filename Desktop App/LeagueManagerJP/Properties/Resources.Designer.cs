@@ -133,6 +133,16 @@ namespace LeagueManagerJP.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap left_hover {
+            get {
+                object obj = ResourceManager.GetObject("left_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap limpiar {
             get {
                 object obj = ResourceManager.GetObject("limpiar", resourceCulture);
@@ -216,6 +226,16 @@ namespace LeagueManagerJP.Properties {
         internal static System.Drawing.Bitmap right_arrow67 {
             get {
                 object obj = ResourceManager.GetObject("right-arrow67", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap right_hover {
+            get {
+                object obj = ResourceManager.GetObject("right_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

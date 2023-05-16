@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PwdUser));
             this.label1 = new System.Windows.Forms.Label();
             this.tb_pwd = new System.Windows.Forms.TextBox();
             this.tb_pwdR = new System.Windows.Forms.TextBox();
@@ -40,48 +41,54 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(29, 36);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(483, 20);
+            this.label1.Size = new System.Drawing.Size(479, 21);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Estas creando un nuevo usuario, por favor establece una password";
+            this.label1.Text = "Estas creando un nuevo usuario, por favor establece una contraseña";
             // 
             // tb_pwd
             // 
+            this.tb_pwd.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_pwd.Location = new System.Drawing.Point(33, 112);
             this.tb_pwd.Name = "tb_pwd";
             this.tb_pwd.PasswordChar = '*';
-            this.tb_pwd.Size = new System.Drawing.Size(207, 26);
+            this.tb_pwd.Size = new System.Drawing.Size(207, 29);
             this.tb_pwd.TabIndex = 1;
             // 
             // tb_pwdR
             // 
+            this.tb_pwdR.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tb_pwdR.Location = new System.Drawing.Point(33, 194);
             this.tb_pwdR.Name = "tb_pwdR";
             this.tb_pwdR.PasswordChar = '*';
-            this.tb_pwdR.Size = new System.Drawing.Size(207, 26);
+            this.tb_pwdR.Size = new System.Drawing.Size(207, 29);
             this.tb_pwdR.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(33, 86);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 20);
+            this.label2.Size = new System.Drawing.Size(89, 21);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Password";
+            this.label2.Text = "Contraseña";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(33, 168);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(133, 20);
+            this.label3.Size = new System.Drawing.Size(140, 21);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Repetir password";
+            this.label3.Text = "Repetir contraseña";
             // 
             // btn_accept
             // 
+            this.btn_accept.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_accept.Location = new System.Drawing.Point(296, 173);
             this.btn_accept.Name = "btn_accept";
             this.btn_accept.Size = new System.Drawing.Size(93, 45);
@@ -92,6 +99,7 @@
             // 
             // btn_cancel
             // 
+            this.btn_cancel.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancel.Location = new System.Drawing.Point(401, 175);
             this.btn_cancel.Name = "btn_cancel";
             this.btn_cancel.Size = new System.Drawing.Size(93, 45);
@@ -112,9 +120,10 @@
             this.Controls.Add(this.tb_pwdR);
             this.Controls.Add(this.tb_pwd);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PwdUser";
-            this.Text = "Form1";
+            this.Text = "Establecer contraseña";
             this.ResumeLayout(false);
             this.PerformLayout();
 

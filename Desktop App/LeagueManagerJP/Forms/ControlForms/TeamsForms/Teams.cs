@@ -20,6 +20,7 @@ namespace LeagueManagerJP.Forms.ControlForms
             InitializeComponent();
             InitializeTrainers();
             UpdateTable();
+            dtp_creation.MaxDate = DateTime.Now;
         }
 
         private void InitializeTrainers()
@@ -74,14 +75,20 @@ namespace LeagueManagerJP.Forms.ControlForms
             ctrlTeams.insertTeam(team);
             UpdateTable();
             InitializeTrainers();
+            clearFields();
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
         {
-            tb_name.Text = String.Empty;
-            tb_origin.Text = String.Empty;
+            clearFields();
+        }
+
+        private void clearFields()
+        {
+            tb_name.Text = string.Empty;
+            tb_origin.Text = string.Empty;
             cmb_trainers.SelectedIndex = -1;
-            dtp_creation.Value = DateTime.Now;
+            dtp_creation.Value = dtp_creation.MaxDate;
         }
 
     }

@@ -12,6 +12,22 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>D:\TFG - DAM\Aplicacion Escritorio\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +47,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>48578F0825A8C65707206281F43723B381FE8173</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>LeagueManagerJP_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNet.Scaffolding.12.0, Version=17.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -80,6 +111,12 @@
     </Compile>
     <Compile Include="Forms\ControlForms\PlayersForms\Players.Designer.cs">
       <DependentUpon>Players.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ControlForms\PlayersForms\PlayersView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ControlForms\PlayersForms\PlayersView.Designer.cs">
+      <DependentUpon>PlayersView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ControlForms\TeamsForms\TeamView.cs">
       <SubType>Form</SubType>
@@ -145,6 +182,9 @@
     <EmbeddedResource Include="Forms\ControlForms\PlayersForms\Players.resx">
       <DependentUpon>Players.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ControlForms\PlayersForms\PlayersView.resx">
+      <DependentUpon>PlayersView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\ControlForms\TeamsForms\TeamView.resx">
       <DependentUpon>TeamView.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +211,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="LeagueManagerJP_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -190,12 +231,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
     <Content Include="Resources\Img\bg-sm.png" />
     <Content Include="Resources\Img\equipos.png" />
     <Content Include="Resources\Img\borrar.png" />
     <Content Include="Resources\Img\check.png" />
+    <Content Include="Resources\Img\favicon.ico" />
     <Content Include="Resources\Img\left-arrow.png" />
     <Content Include="Resources\Img\left-arrow64.png" />
+    <Content Include="Resources\Img\left_hover.png" />
     <Content Include="Resources\Img\limpiar.png" />
     <Content Include="Resources\Img\Logo 2 LM.png" />
     <Content Include="Resources\Img\Logo LM.png" />
@@ -204,12 +248,25 @@
     <Content Include="Resources\Img\players3.png" />
     <Content Include="Resources\Img\right-arrow.png" />
     <Content Include="Resources\Img\right-arrow67.png" />
+    <Content Include="Resources\Img\right_hover.png" />
     <Content Include="Resources\Img\square-cross.png" />
     <Content Include="Resources\Img\teams.png" />
     <Content Include="Resources\Img\marcador.png" />
     <Content Include="Resources\Img\trofeo.png" />
     <Content Include="Resources\Img\user.png" />
     <Content Include="Resources\Img\fondoLogin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

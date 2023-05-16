@@ -13,6 +13,7 @@ namespace LeagueManagerJP.Controllers
 {
     public class ctrlPeriods
     {
+
         public static string noEndDate = "ID_Period IN (SELECT ID_Period FROM periods WHERE isnull(End_Date))";
         public static Period readPeriod(int id)
         {

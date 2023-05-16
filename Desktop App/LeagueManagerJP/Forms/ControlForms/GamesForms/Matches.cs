@@ -18,22 +18,25 @@ namespace LeagueManagerJP.Forms.ControlForms
 
         public Competition competition;
         User referee;
+        Login parent;
         public Matches()
         {
             InitializeComponent();
             InitializeCombo();
         }
 
-        public Matches(User referee)
+        public Matches(User referee, Login parent)
         {
             InitializeComponent();
             InitializeCombo();
             this.referee = referee;
+            btn_logout.Visible = true;
+            this.parent = parent;
         }
 
         private void InitializeCombo()
         {
-            cmb_competitions.DataSource = ctrlCompetitions.ReadCompetitions("WHERE ID_Period IN (SELECT ID_Period FROM periods WHERE !isnull(Start_Date))");
+            cmb_competitions.DataSource = ctrlCompetitions.ReadCompetitions("WHERE c.ID_Period IN (SELECT ID_Period FROM periods WHERE !isnull(Start_Date))");
         }
 
         private void cmb_competitions_SelectedIndexChanged(object sender, EventArgs e)
@@ -157,6 +160,12 @@ namespace LeagueManagerJP.Forms.ControlForms
                 }
                 mv.Show();
             }
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            parent.Show();
         }
     }
 }

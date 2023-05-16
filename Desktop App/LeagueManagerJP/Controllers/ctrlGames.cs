@@ -20,7 +20,14 @@ namespace LeagueManagerJP.Controllers
     {
         public static BindingSource readGames(Competition competition, string condition)
         {
-            String query = "SELECT ID_Game, ID_Referee, Home_Team, Away_Team, ID_Competition, Matchday, Game_Date, Played FROM games WHERE  ID_Competition = "+competition.Id+" "+condition;
+            String query = "SELECT ID_Game, ID_Referee," +
+                " Home_Team, t1.Team_Name AS Home_Name, t2.Team_Name AS Away_Name, Away_Team, " +
+                "ID_Competition, Matchday, Game_Date, Played " +
+                "FROM games g " +
+                "INNER JOIN teams t1 ON g.Home_Team = t1.ID_Team " +
+                "INNER JOIN teams t2 ON g.Away_Team = t2.ID_Team " +
+                "WHERE  ID_Competition = "+competition.Id+" "+condition+" " +
+                "ORDER BY Matchday";
             DataTable dt = connMySQL.ObtenerDatosSQL(query);
             ObservableCollection<Game> lstGames = new ObservableCollection<Game>();
             BindingSource bsGames = new BindingSource { DataSource = lstGames };
@@ -32,10 +39,10 @@ namespace LeagueManagerJP.Controllers
                 game.matchDay = (string)row["Matchday"];
                 game.homeTeam = new Team();
                 game.homeTeam.Id = (int)row["Home_Team"];
-                game.homeTeam.Name = ctrlTeams.readTeamName(game.homeTeam.Id);
+                game.homeTeam.Name = (string)row["Home_Name"];
                 game.awayTeam = new Team();
                 game.awayTeam.Id = (int)row["Away_Team"];
-                game.awayTeam.Name = ctrlTeams.readTeamName(game.awayTeam.Id);
+                game.awayTeam.Name = (string)row["Away_Name"];
                 game.isPlayed = row["Played"].ToString() == "1";
                 game.GameDate = (DateTime)Convert.ToDateTime(row["Game_Date"]);
                 bsGames.Add(game);
@@ -87,6 +94,13 @@ namespace LeagueManagerJP.Controllers
                 return false;
             }
             return true;
+        }
+
+        public static bool deleteReports(int competitionID)
+        {
+            String query = "DELETE FROM reports WHERE ID_Game IN (SELECT ID_Game FROM games WHERE ID_Competition ="+competitionID+")";
+            if (connMySQL.EjecutarSQL(query) == -1) return false;
+            else return true;
         }
 
         public static bool deleteGames(int competitionID)
