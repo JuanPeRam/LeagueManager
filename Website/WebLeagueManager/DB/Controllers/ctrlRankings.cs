@@ -7,105 +7,126 @@ namespace WebLeagueManager.DB.Controllers
 {
     public class ctrlRankings
     {
-        public static List<RankingTeam> getRanking(int id)
-        {
-            List<RankingTeam> ranking = new List<RankingTeam>();
-            List<Team> teams = ctrlTeams.ReadTeamsByCompetition(id);
-            foreach (Team team in teams)
-            {
-                RankingTeam rankingtem = new RankingTeam();
-                rankingtem.team = team;
-                ranking.Add(rankingtem);
-            }
-            Dictionary<int, RankingTeam> rankingKeys = ranking.ToDictionary(keySelector: m => m.team.Id, elementSelector: m => m);
-            List<Result> results = ctrlGames.readResultsByCompetition(id, " AND Played = 1 ");
-            foreach (Result result in results)
-            {
-                RankingTeam homeTeam = rankingKeys[result.Home_Team];
-                RankingTeam awayTeam = rankingKeys[result.Away_Team];
-                homeTeam.gamesPlayed += 1;
-                awayTeam.gamesPlayed += 1;
-                homeTeam.goals += result.Home_Goals;
-                homeTeam.goalsAgainst += result.Away_Goals;
-                awayTeam.goals += result.Away_Goals;
-                awayTeam.goalsAgainst += result.Home_Goals;
-                if(result.Home_Goals > result.Away_Goals)
-                {
-                    homeTeam.points += 3;
-                    homeTeam.victories += 1;
-                    awayTeam.defeats += 1;
-                }
-                else if (result.Home_Goals < result.Away_Goals)
-                {
-                    awayTeam.points += 3;
-                    homeTeam.defeats += 1;
-                    awayTeam.victories += 1;
-                }
-                else
-                {
-                    homeTeam.points += 1;
-                    awayTeam.points += 1;
-                    homeTeam.draws += 1;
-                    awayTeam.draws += 1;
-                }
-            }
-            List<RankingTeam> finalRanking = rankingKeys.Values.ToList();
-            List<RankingTeam> orderedRanking = new List<RankingTeam>();
-            for(int i = 1; i <= finalRanking.Count; i++)
-            {
-                RankingTeam greaterTeam = null;
-                bool first = false;
-                foreach(RankingTeam team in finalRanking)
-                {
-                    if (team.Pos != 0) continue;
-                    if (!first)
-                    {
-                        greaterTeam = team;
-                        first = true;
-                        continue;
-                    }
-                    if (greaterTeam.points > team.points) continue;
-                    if(team.points > greaterTeam.points)
-                    {
-                        greaterTeam = team;
-                        continue;
-                    }
-                    if (greaterTeam.goals > team.goals) continue;
-                    if(team.goals > greaterTeam.goals)
-                    {
-                        greaterTeam = team; 
-                        continue;
-                    }
-                    if (greaterTeam.goalsAgainst < team.goalsAgainst) continue;
-                    if(greaterTeam.goalsAgainst > team.goalsAgainst)
-                    {
-                        greaterTeam = team;
-                        continue;
-                    }
 
-                    
-                }
-                if (greaterTeam != null)
+        public static List<Ranking> GetRankings()
+        {
+            List<Game> games = ctrlGames.readAllGames("");
+            List<Ranking> rankings = new List<Ranking>();
+            int id_competition = -1;
+            Ranking ranking = null;
+            foreach(Game game in games)
+            {
+                if(game.competition.ID != id_competition)
                 {
-                    greaterTeam.Pos = i;
-                    orderedRanking.Add(greaterTeam);
+                    id_competition = game.competition.ID;
+                    ranking = new Ranking();
+                    ranking.games = new List<Game>();
+                    ranking.keyRankingTeams = new Dictionary<int, RankingTeam>();
+                    ranking.id_competition = game.competition.ID;
+                    ranking.type = game.competition.Type;
+                    rankings.Add(ranking);
+                }
+                if (!ranking.keyRankingTeams.ContainsKey(game.Home_Team.Id))
+                {
+                    RankingTeam rankingTeam = new RankingTeam();
+                    rankingTeam.team = game.Home_Team;
+                    ranking.keyRankingTeams.Add(rankingTeam.team.Id, rankingTeam);
+                }
+                if (!ranking.keyRankingTeams.ContainsKey(game.Away_Team.Id))
+                {
+                    RankingTeam rankingTeam = new RankingTeam();
+                    rankingTeam.team = game.Away_Team;
+                    ranking.keyRankingTeams.Add(rankingTeam.team.Id, rankingTeam);
+                }
+                RankingTeam homeRankingTeam = ranking.keyRankingTeams[game.Home_Team.Id];
+                RankingTeam awayRankingTeam = ranking.keyRankingTeams[game.Away_Team.Id];
+                if (game.Played)
+                {
+                    setGameStats(game, homeRankingTeam, awayRankingTeam);
+                }
+                ranking.games.Add(game);
+            }
+
+            foreach(Ranking rank in rankings)
+            {
+                rank.rankingTeams = new List<RankingTeam>();
+                for (int i = 1; i <= rank.keyRankingTeams.Count; i++)
+                {
+                    RankingTeam greaterTeam = null;
+                    bool first = false;
+                    foreach (RankingTeam team in rank.keyRankingTeams.Values)
+                    {
+                        if (team.Pos != 0) continue;
+                        if (!first)
+                        {
+                            greaterTeam = team;
+                            first = true;
+                            continue;
+                        }
+                        if (greaterTeam.points > team.points) continue;
+                        if (team.points > greaterTeam.points)
+                        {
+                            greaterTeam = team;
+                            continue;
+                        }
+                        if (greaterTeam.goals > team.goals) continue;
+                        if (team.goals > greaterTeam.goals)
+                        {
+                            greaterTeam = team;
+                            continue;
+                        }
+                        if (greaterTeam.goalsAgainst < team.goalsAgainst) continue;
+                        if (greaterTeam.goalsAgainst > team.goalsAgainst)
+                        {
+                            greaterTeam = team;
+                            continue;
+                        }
+
+
+                    }
+                    if (greaterTeam != null)
+                    {
+                        greaterTeam.Pos = i;
+                        rank.rankingTeams.Add(greaterTeam);
+                    }
                 }
             }
-            return orderedRanking;
+
+            return rankings;
         }
 
-        public static List<Ranking> GetRankings(List<Competition> competitions)
+        private static void setGameStats(Game game, RankingTeam homeRankingTeam, RankingTeam awayRankingTeam)
         {
-            List<Ranking> rankings = new List<Ranking>();
-            foreach(Competition comp in competitions)
+            homeRankingTeam.gamesPlayed++;
+            awayRankingTeam.gamesPlayed++;
+
+            homeRankingTeam.goals += game.Home_Goals;
+            homeRankingTeam.goalsAgainst += game.Away_Goals;
+
+            awayRankingTeam.goalsAgainst += game.Home_Goals;
+            awayRankingTeam.goals += game.Away_Goals;
+
+            if (game.Away_Goals < game.Home_Goals)
             {
-                Ranking ranking = new Ranking();
-                ranking.rankingTeams = getRanking(comp.ID);
-                ranking.id_competition = comp.ID;
-                ranking.type = comp.Type;
-                rankings.Add(ranking);
+                awayRankingTeam.defeats++;
+                homeRankingTeam.victories++;
+                homeRankingTeam.points += 3;
             }
-            return rankings;
+            else if (game.Away_Goals > game.Home_Goals)
+            {
+                homeRankingTeam.defeats++;
+                awayRankingTeam.victories++;
+                awayRankingTeam.points += 3;
+            }
+            else
+            {
+                homeRankingTeam.draws++;
+                awayRankingTeam.draws++;
+                homeRankingTeam.points++;
+                awayRankingTeam.points++;
+            }
+
+
         }
 
 

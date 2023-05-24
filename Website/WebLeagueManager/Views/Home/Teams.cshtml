@@ -1,17 +1,17 @@
 ﻿@model WebLeagueManager.Views.Home.TeamsModel
 @{
-    
+    ViewData["Title"] = "Equipos";
 }
 <br />
-<h2>List of Teams</h2>
+<h3>Listado de equipos</h3>
     <section class="teams_group">
         @foreach (Team item in Model.lstTeams)
         {
-            <a class="team_card" href="/Home/Team?id=@item.Id">
+            <div class="team_card" id=@item.Id>
                 @item.Name <br />
                 - <br/>
                 @item.Origin
-            </a>
+            </div>
         }
     </section>
 
@@ -35,8 +35,12 @@
         height: 150px;
     }
 
-    .team_card :hover{
-        background-color: black;
+    .team_card:hover{
+        background: linear-gradient(180deg, rgba(151,1,225,1) 0%, rgba(149,5,152,1) 100%);
+        color: white;
+        cursor:pointer;
+        scale: 1.1;
+        transition: .2s ease-in-out all;
     }
     a{
         text-decoration: none;
@@ -44,3 +48,21 @@
         display: inline;
     }
 </style>
+
+<script defer>
+
+    const cards = document.querySelectorAll('.team_card');
+    
+    for (var i = 0; i < cards.length; i++) {
+            (function (index) {
+                cards[index].addEventListener('click', function () {
+                openTeamById(cards[index].id);
+                });
+            })(i);
+    }
+
+    function openTeamById(id){
+        var url = "/Home/Team?id=" + id
+        window.open(url, "_self")
+    }
+</script>

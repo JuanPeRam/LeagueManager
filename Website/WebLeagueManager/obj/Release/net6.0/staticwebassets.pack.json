@@ -21,6 +21,18 @@
       "PackagePath": "staticwebassets\\img\\Logo.png"
     },
     {
+      "Id": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\img\\foot-ball.png",
+      "PackagePath": "staticwebassets\\img\\foot-ball.png"
+    },
+    {
+      "Id": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\img\\red-card.png",
+      "PackagePath": "staticwebassets\\img\\red-card.png"
+    },
+    {
+      "Id": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\img\\yellow-card.png",
+      "PackagePath": "staticwebassets\\img\\yellow-card.png"
+    },
+    {
       "Id": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -1,9 +1,59 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about cosititas <a href="https://docs.microsoft.com/aspnet/core"> building Web apps with ASP.NET Core</a>.</p>
+    <div class="home-header">
+        <div>Bienvenido a la web oficial de</div>
+        <div class="home-header-appname">
+            <div class="league-manager-tittle">League Manager</div>
+           
+        </div>
+    </div>
+    <p>Aquí podrás ver todos los datos relativos a 
+        <a href="/Home/Rankings">clasificaciones</a>
+        , <a href="/Home/Games"> partidos</a>
+        y<a href="/Home/Teams"> equipos</a>
+    </p>
 
 </div>
+
+<style>
+    p a{
+        text-decoration: none;
+        background: linear-gradient(90deg, rgba(151,1,225,1) 0%, rgba(149,5,152,1) 100%);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .home-header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        font-size: 3rem;
+    }
+
+    .league-manager-tittle{
+        background: linear-gradient(90deg, rgba(151,1,225,1) 0%, rgba(149,5,152,1) 100%);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .home-header-appname {
+        display: flex;
+        background: black;
+        color: white;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        border-radius: 50px;
+        width: fit-content;
+        padding: 20px;
+    }
+</style>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\WebLeagueManager.csproj": {}
+    "D:\\TFG - DAM\\Web\\WebLeagueManager\\WebLeagueManager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\WebLeagueManager.csproj": {
+    "D:\\TFG - DAM\\Web\\WebLeagueManager\\WebLeagueManager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\WebLeagueManager.csproj",
+        "projectUniqueName": "D:\\TFG - DAM\\Web\\WebLeagueManager\\WebLeagueManager.csproj",
         "projectName": "WebLeagueManager",
-        "projectPath": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\WebLeagueManager.csproj",
+        "projectPath": "D:\\TFG - DAM\\Web\\WebLeagueManager\\WebLeagueManager.csproj",
         "packagesPath": "C:\\Users\\hr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\obj\\",
+        "outputPath": "D:\\TFG - DAM\\Web\\WebLeagueManager\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hr\\AppData\\Roaming\\NuGet\\NuGet.Config",

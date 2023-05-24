@@ -1,0 +1,176 @@
+﻿@model WebLeagueManager.Views.Home.GamesModel
+@{
+    ViewData["Title"] = "Games";
+}
+<h2>Partidos</h2>
+<section>
+    <select id="competition_select" title="Escoge una competición">
+        <option selected disabled>Escoge una competición</option>
+        @foreach (Competition item in Model.lstCompetitions)
+        {
+            <option value="@item.ID">@item.Name</option>
+        }
+    </select>
+    <div id="gamesList">
+    </div>
+</section>
+
+<script defer>
+    const gamesList = document.getElementById("gamesList");
+    const games = @Html.Raw(Model.getGames());
+    const jsonStringGames = JSON.stringify(games);
+    const jsonObjGames = JSON.parse(jsonStringGames);
+    const competitionSelect = document.getElementById("competition_select");
+
+    competitionSelect.addEventListener("change", () => {
+
+        const selectedComp = competitionSelect.value;
+        const gamesArray = readGamesById(selectedComp, jsonStringGames)
+
+        removeGamesContent(gamesList)
+        drawMatches(gamesArray);
+        setLinkers();
+    });
+
+    function setLinkers(){
+        const clickableMatches = document.querySelectorAll(".flex_game")
+        for (var i = 0; i < clickableMatches.length; i++) {
+            (function (index) {
+                clickableMatches[index].addEventListener('click', function () {
+                    openGameById(clickableMatches[index].id);
+                });
+            })(i);
+        }
+    }
+
+    function openGameById(id){
+        var url = "/Home/Game?id=" + id
+        window.open(url, "_self")
+    }
+
+    function removeGamesContent(element) {
+        while (element.firstChild) {
+            element.removeChild(element.firstChild)
+        }
+    }
+
+    function readGamesById(selectedComp, jsonData) {
+        var data = JSON.parse(jsonData)
+        var gamesArray = []
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].competition.ID == selectedComp) {
+                gamesArray.push(data[i])
+            }
+        }
+
+        return gamesArray;
+    }
+
+    function drawMatches(gamesArray)
+    {
+        var currentMatchday = ""
+        var matchdaySection
+        for(let i=0;i<gamesArray.length;i++){
+            var game = gamesArray[i]
+            var gameDate = game.Game_Date
+            var date = new Date(gameDate).toLocaleDateString("es-ES");
+            var time = new Date(gameDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            if(currentMatchday != game.Matchday){
+                console.log(game)
+                currentMatchday = game.Matchday
+                matchdaySection = document.createElement("section");
+                matchdaySection.id = currentMatchday;
+                matchdaySection.className = "matchday_section";
+                header = document.createElement("div");
+                header.innerText = currentMatchday+" - "+date
+                header.className = "matchday_header"
+                matchdaySection.appendChild(header)
+                gamesList.appendChild(matchdaySection)
+            }
+            gameElement = document.createElement("div")
+            gameElement.id = game.Id
+            gameElement.className = "flex_game"
+            homeTeamElement = document.createElement("div")
+            homeTeamElement.className = "game_item"
+            homeTeamElement.innerText = game.Home_Team.Name
+            awayTeamElement = document.createElement("div")
+            awayTeamElement.className = "game_item"
+            awayTeamElement.innerText = game.Away_Team.Name
+            resultElement = document.createElement("div")
+            resultElement.className = "game_item"
+            if(game.Played == true){
+                resultElement.classList.add("game_played")
+                resultElement.innerText = game.Home_Goals+" - "+game.Away_Goals
+            }
+            else{
+                resultElement.classList.add("game_notPlayed")
+                resultElement.innerText = time
+            }
+            gameElement.appendChild(homeTeamElement)
+            gameElement.appendChild(resultElement)
+            gameElement.appendChild(awayTeamElement)
+            matchdaySection.appendChild(gameElement)
+
+        }
+    }
+</script>
+
+<style>
+    .flex_game{
+        display: flex;
+        justify-content: space-between;
+        padding: 15px;
+        border-bottom: 1px solid black;
+    }
+
+    .flex_game:first-child {
+        border-top: 1px solid black;
+    }
+
+    .game_item{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 3.5rem;
+        width: 7rem;
+        text-align: center;
+        border-radius: 2px;
+    }
+
+    .game_played{
+        color: white;
+        background: linear-gradient(90deg, rgba(151,1,225,1) 0%, rgba(149,5,152,1) 100%);
+        border-radius: 5px;
+    }
+
+    .game_notPlayed{
+        background-color: #f4f4f4;
+        border: 1px solid black;
+    }
+
+    .flex_game:hover{
+        color:white;
+        background-color: rgb(70,25,76);
+        cursor: pointer;
+    }
+
+    .flex_game:hover > .game_notPlayed{
+        background-color: #f4f4f4;
+        color:black;
+        font-weight: bold;
+    }
+
+    .matchday_header {
+        margin-top: 15px;
+        border-bottom: 1px solid black;
+        padding: 15px;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+    .matchday_section{
+        margin: 0 0 20px 20px;
+    }
+
+</style>
+

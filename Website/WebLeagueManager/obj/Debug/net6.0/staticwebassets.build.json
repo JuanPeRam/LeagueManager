@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1SJIDDGB3z3QLUhtTtPmcDpIHtN1fH9ggJEp9vFzWPU=",
+  "Hash": "/lMuR3KW9w6yCrsLun/k7CtU3ROAkL3Hr9TCzNNI5sA=",
   "Source": "WebLeagueManager",
   "BasePath": "_content/WebLeagueManager",
   "Mode": "Default",
@@ -85,6 +85,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\img\\foot-ball.png",
+      "SourceId": "WebLeagueManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\",
+      "BasePath": "_content/WebLeagueManager",
+      "RelativePath": "img/foot-ball.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\foot-ball.png"
+    },
+    {
       "Identity": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\img\\Logo 2 LM.png",
       "SourceId": "WebLeagueManager",
       "SourceType": "Discovered",
@@ -117,6 +134,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\Logo.png"
+    },
+    {
+      "Identity": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\img\\red-card.png",
+      "SourceId": "WebLeagueManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\",
+      "BasePath": "_content/WebLeagueManager",
+      "RelativePath": "img/red-card.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\red-card.png"
+    },
+    {
+      "Identity": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\img\\yellow-card.png",
+      "SourceId": "WebLeagueManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\",
+      "BasePath": "_content/WebLeagueManager",
+      "RelativePath": "img/yellow-card.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\yellow-card.png"
     },
     {
       "Identity": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\wwwroot\\js\\site.js",

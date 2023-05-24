@@ -1,0 +1,284 @@
+﻿@model WebLeagueManager.Views.Home.GameModel
+@{
+    ViewData["Title"] = Model.game.Home_Team.Name+" VS "+Model.game.Away_Team.Name;
+}
+
+
+<section class="match-data">
+    <div class="comp-data game-info">
+        @Model.game.competition.Name @Model.game.Matchday
+    </div>
+    <div class="game-result game-info">
+        <div class="home-team game_item">@Model.game.Home_Team.Name</div>
+        <div class="scoreboard game_item">
+            @if (Model.game.Played)
+            {
+                <div>@Model.game.Home_Goals-@Model.game.Away_Goals</div>
+            }
+            else{
+                <div>@Model.game.Game_Date.ToString("hh:mm")</div>
+            }
+        </div>
+        <div class="away-team game_item">@Model.game.Away_Team.Name</div>
+    </div>
+    <div class="game-data game-info">
+        @Model.date 
+        @if (Model.game.Referee != null) {
+            <div>Árbitro: @Model.game.Referee</div>
+        }
+    </div>
+</section>
+@if (Model.game.Played)
+{
+    <section class="grid-container">
+        <div class="home_container players-container">
+            <div class="team-name">@Model.game.Home_Team.Name</div>
+            <div class="reports-header grid-reports">
+                <div class="number-header">#</div>
+                <div class="name-header">Jugador</div>
+            </div>
+            @foreach (Report report in Model.homePlayers)
+            {
+                <div class="grid-reports">
+                    <div class="player-number">
+                        @report.player.Number
+                    </div>
+                    <div class="player-name">
+                        @report.player.Name
+                    </div>
+                    <div class="player-stats">
+                        @if (report.yellowCards > 0)
+                        {
+                            <img src="~/img/yellow-card.png" class="stats-img" alt="Yellow Card" />
+                        }
+                        @if (report.redCards > 0)
+                        {
+                            <img src="~/img/red-card.png" class="stats-img" alt="Red Card" />
+                        }
+                        @if (report.goalsScored > 0)
+                        {
+                            <img src="~/img/foot-ball.png" class="stats-img" alt="Football Ball" />
+                            @if (report.goalsScored > 1)
+                            {
+                                <div class="adittional-goals">
+                                    @report.goalsScored
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            @if (Model.homeNotPlayed.Count > 0)
+            {
+                <div class="not-played-container">
+                    <div class="not-played-header">
+                        No juegan
+                    </div>
+                    @foreach (Report report in Model.homeNotPlayed)
+                    {
+                        <div class="not-played-player">
+                            @report.player.Name
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div class="away_container players-container">
+            <div class="team-name">@Model.game.Away_Team.Name</div>
+            <div class="reports-header grid-reports">
+                <div class="number-header">#</div>
+                <div class="name-header">Jugador</div>
+            </div>
+            @foreach (Report report in Model.awayPlayers)
+            {
+                <div class="grid-reports">
+                    <div class="player-number">
+                        @report.player.Number
+                    </div>
+                    <div class="player-name">
+                        @report.player.Name
+                    </div>
+                    <div class="player-stats">
+                        @if (report.yellowCards > 0)
+                        {
+                            <img src="~/img/yellow-card.png" class="stats-img" alt="Yellow Card" />
+                        }
+                        @if (report.redCards > 0)
+                        {
+                            <img src="~/img/red-card.png" class="stats-img" alt="Red Card" />
+                        }
+                        @if (report.goalsScored > 0)
+                        {
+                            <img src="~/img/foot-ball.png" class="stats-img" alt="Football Ball" />
+                            @if (report.goalsScored > 1)
+                            {
+                                <div class="adittional-goals">
+                                    @report.goalsScored
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+            @if (Model.awayNotPlayed.Count > 0)
+            {
+                <div class="not-played-container">
+                    <div class="not-played-header">
+                        No juegan
+                    </div>
+                    @foreach (Report report in Model.awayNotPlayed)
+                    {
+                        <div class="not-played-player">
+                            @report.player.Name
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </section>
+}
+<style>
+    .adittional-goals {
+        border-radius: 50%;
+        color: white;
+        background-color: black;
+        position: relative;
+        top: -5px;
+        left: -12px;
+        width: 15px;
+        height: 15px;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .stats-img {
+        width: 15px;
+    }
+
+    .player-stats {
+        display: flex;
+        height: fit-content;
+        justify-content: center;
+        align-items: center;
+        gap: 1vh;
+    }
+
+    .grid-reports {
+        display: grid;
+        padding: 2vh;
+        border-bottom: 1px solid #dee2e6;
+        place-items: center;
+        grid-template-columns: 10% 70% 20%;
+    }
+
+    .players-container {
+        margin: 20px;
+        box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+    }
+
+    .reports-header {
+        font-weight: bold;
+    }
+
+    .team-name {
+        border-bottom: 1px solid #dee2e6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: rgb(244, 244, 244);
+        padding: 2vh;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .not-played-header {
+        border-bottom: 1px solid #dee2e6;
+        border-top: 1px solid black;
+        background-color: rgb(65, 65, 65);
+        color: rgb(244, 244, 244);
+        display: grid;
+        place-items: center;
+        padding: 5px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .not-played-player {
+        padding: 5px;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .match-data {
+    }
+
+    .game-info {
+        border-bottom: 1px solid #dee2e6;
+        text-align: center;
+        font-size: .8rem;
+    }
+
+    .comp-data {
+        padding: 10px;
+    }
+
+    .game-result {
+        padding: 3vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serifs;
+        display: flex;
+        flex-direction: row;
+        font-size: 1.5rem;
+        font-weight: bold;
+        justify-content: space-between;
+        padding-left: 5rem;
+        padding-right: 5rem;
+        align-items: center;
+    }
+
+    .game-data {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .scoreboard {
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+        padding: 5px 20px;
+        box-shadow: 10px 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .game_item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 7rem;
+        text-align: center;
+        border-radius: 2px;
+    }
+
+    @@media only screen and (max-width: 540px) {
+        .grid-container {
+            display: grid;
+            grid-template-columns: 100%;
+        }
+
+        .game-result {
+            padding: 3vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serifs;
+            display: flex;
+            flex-direction: column;
+            font-size: 2rem;
+            font-weight: bold;
+            justify-content: space-between;
+            padding-left: 5rem;
+            padding-right: 5rem;
+        }
+    }
+</style>

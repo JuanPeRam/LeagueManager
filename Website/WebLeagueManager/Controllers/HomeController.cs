@@ -42,6 +42,18 @@ namespace WebLeagueManager.Controllers
             return View(model);
         }
 
+        public IActionResult Games()
+        {
+            GamesModel model = new GamesModel();
+            return View(model);
+        }
+
+        public IActionResult Game(int id)
+        {
+            GameModel model = new GameModel(id);
+            return View(model);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

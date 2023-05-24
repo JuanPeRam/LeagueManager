@@ -5,46 +5,16 @@
 <br />
 <h2>Clasificaciones</h2>
 <section>
-    <p>Escoge la competición</p>
-    <select id="competition_select">
+    <select id="competition_select" title="Escoge una competición">
+        <option selected disabled>Escoge una competición</option>
         @foreach (Competition item in Model.competitions)
         {
             <option value="@item.ID">@item.Name</option>
         }
     </select>
-    <table class="table" id="table_ranking">
-        <thead>
-            <tr>
-                <th>Pos</th>
-                <th>Equipo</th>
-                <th>PJ</th>
-                <th>PG</th>
-                <th>PE</th>
-                <th>PP</th>
-                <th>GF</th>
-                <th>GC</th>
-                <th>DG</th>
-                <th>Puntos</th>
-            </tr>
-        </thead>
-        <tbody class="ranking" id="tablebody_rankings">
-            @foreach (RankingTeam item in Model.rankingTeams)
-            {
-                <tr id="@item.team.Id">
-                    <td>@item.Pos</td>
-                    <td>@item.team.Name</td>
-                    <td>@item.gamesPlayed</td>
-                    <td>@item.victories</td>
-                    <td>@item.draws</td>
-                    <td>@item.defeats</td>
-                    <td>@item.goals</td>
-                    <td>@item.goalsAgainst</td>
-                    <td>@(@item.goals - @item.goalsAgainst)</td>
-                    <td>@item.points</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div id="ranking">
+
+    </div>
 </section>
 
 <script defer>
@@ -52,9 +22,13 @@
     const competitions = @Html.Raw(Model.getRankings());
     const jsonStringCompetitions = JSON.stringify(competitions);
     const jsonObjCompetitions = JSON.parse(jsonStringCompetitions);
-    const tableRankig = document.getElementById("table_ranking");
-    const tableBodyRanking = document.getElementById("tablebody_rankings");
+    const rankingSpace = document.getElementById("ranking");
+    var tableRanking;
+    var tableBodyRanking;
     const competitionSelect = document.getElementById("competition_select");
+    var clickableRows = document.querySelectorAll(".clickable_row");
+
+    setClickableRows()
 
     competitionSelect.addEventListener("change", () => {
 
@@ -63,11 +37,33 @@
 
         if(rankingArray.type == "League") {
             drawTable(rankingArray.rankingTeams)
+            setClickableRows()
         }
         else {
-            console.log("Es copa")
+
         }
     });
+
+    
+
+    function setClickableRows()
+    {
+        clickableRows = document.querySelectorAll(".clickable_row")
+        for (var i = 0; i < clickableRows.length; i++) {
+            (function (index) {
+                clickableRows[index].addEventListener('click', function () {
+                    openTeamById(clickableRows[index].id);
+                });
+            })(i);
+        }
+    }
+    
+
+    function openTeamById(id) 
+    {
+        var url = "/Home/Team?id="+id
+        window.open(url,"_self")
+    }
 
     function readRankingById(competitionId, jsonData) {
         var data = JSON.parse(jsonData)
@@ -82,9 +78,19 @@
 
     function drawTable(rankingTeams)
     {
-        while(tableBodyRanking.firstChild){
-            tableBodyRanking.removeChild(tableBodyRanking.firstChild)
+        while(rankingSpace.firstChild){
+            rankingSpace.removeChild(rankingSpace.firstChild)
         }
+        tableRanking = document.createElement("table")
+        tableRanking.id = "table_ranking"
+        tableRanking.className = "table"
+
+        tableBodyRanking = document.createElement("tbody")
+        tableBodyRanking.id = "tablebody_rankings"
+        tableBodyRanking.className = "ranking"
+
+        createTable(tableRanking, tableBodyRanking);
+        
 
         for(let i=0; i<rankingTeams.length; i++)
         {
@@ -92,42 +98,45 @@
             var newRowAux = newRow(rankingTeamsRow)
             tableBodyRanking.appendChild(newRowAux)
         }
+
+        rankingSpace.appendChild(tableRanking)
+    }
+
+    function createTable(tableRanking, tableBodyRanking) {
+        const tableHeader = document.createElement("thead");
+        const headerRow = document.createElement("tr");
+        const titlesArray = ["Pos","Equipo","PJ","PG","PE","PP","GF","GC","DG","Puntos"]
+        for(let i=0;i<titlesArray.length;i++){
+            var tittle = document.createElement("th");
+            tittle.innerText = titlesArray[i]
+            headerRow.appendChild(tittle)
+        }
+        tableHeader.appendChild(headerRow)
+        tableRanking.appendChild(tableHeader);
+        tableRanking.appendChild(tableBodyRanking);
     }
 
     function newRow(rankingTeamsRow) {
         var newRow = document.createElement("tr");
         newRow.id = rankingTeamsRow.team.Id;
-        var cell_0 = document.createElement("td");
-        cell_0.appendChild(document.createTextNode(rankingTeamsRow.Pos));
-        var cell_1 = document.createElement("td");
-        cell_1.appendChild(document.createTextNode(rankingTeamsRow.team.Name));
-        var cell_2 = document.createElement("td");
-        cell_2.appendChild(document.createTextNode(rankingTeamsRow.gamesPlayed));
-        var cell_3 = document.createElement("td");
-        cell_3.appendChild(document.createTextNode(rankingTeamsRow.victories));
-        var cell_4 = document.createElement("td");
-        cell_4.appendChild(document.createTextNode(rankingTeamsRow.draws));
-        var cell_5 = document.createElement("td");
-        cell_5.appendChild(document.createTextNode(rankingTeamsRow.defeats));
-        var cell_6 = document.createElement("td");
-        cell_6.appendChild(document.createTextNode(rankingTeamsRow.goals));
-        var cell_7 = document.createElement("td");
-        cell_7.appendChild(document.createTextNode(rankingTeamsRow.goalsAgainst));
-        var cell_8 = document.createElement("td");
-        cell_8.appendChild(document.createTextNode((rankingTeamsRow.goals - rankingTeamsRow.goalsAgainst)));
-        var cell_9 = document.createElement("td");
-        cell_9.appendChild(document.createTextNode(rankingTeamsRow.points));
-        newRow.appendChild(cell_0)
-        newRow.appendChild(cell_1)
-        newRow.appendChild(cell_2)
-        newRow.appendChild(cell_3)
-        newRow.appendChild(cell_4)
-        newRow.appendChild(cell_5)
-        newRow.appendChild(cell_6)
-        newRow.appendChild(cell_7)
-        newRow.appendChild(cell_8)
-        newRow.appendChild(cell_9)
-
+        newRow.className = "clickable_row";
+        var statsArray = [
+            rankingTeamsRow.Pos,
+            rankingTeamsRow.team.Name,
+            rankingTeamsRow.gamesPlayed,
+            rankingTeamsRow.victories,
+            rankingTeamsRow.draws,
+            rankingTeamsRow.defeats,
+            rankingTeamsRow.goals,
+            rankingTeamsRow.goalsAgainst,
+            rankingTeamsRow.goals - rankingTeamsRow.goalsAgainst,
+            rankingTeamsRow.points
+        ]
+        for (let i=0;i<statsArray.length;i++){
+            var cell = document.createElement("td");
+            cell.innerText = statsArray[i]
+            newRow.appendChild(cell)
+        }
         return newRow
     }
 
