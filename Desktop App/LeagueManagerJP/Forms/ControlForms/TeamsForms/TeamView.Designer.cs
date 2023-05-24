@@ -449,7 +449,7 @@
             // btn_logout
             // 
             this.btn_logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_logout.BackColor = System.Drawing.Color.Indigo;
+            this.btn_logout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(10)))), ((int)(((byte)(40)))));
             this.btn_logout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_logout.Font = new System.Drawing.Font("Segoe UI Black", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_logout.ForeColor = System.Drawing.SystemColors.ControlLightLight;

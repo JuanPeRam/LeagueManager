@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "G9DYe21ZGXerc+KWXTR1iqKByNimf542K/a/EY9lrCj7AFTs9TGGvb3kXF/FhyYZX3YkHYEtdvwkJnfrElnhNg==",
+  "dgSpecHash": "7FG5PMCa01egEbu/8egX1nNcQLiZKSKC6zsD3ZJmJxH5Bdn9cACAf+j+TwHUZuX58OxHkaZc0zcAZGrjYEV7yQ==",
   "success": true,
-  "projectFilePath": "D:\\TFG - DAM\\Web\\WebLeagueManager\\WebLeagueManager.csproj",
+  "projectFilePath": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\WebLeagueManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hr\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",
     "C:\\Users\\hr\\.nuget\\packages\\k4os.compression.lz4\\1.3.5\\k4os.compression.lz4.1.3.5.nupkg.sha512",

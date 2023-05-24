@@ -1759,11 +1759,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\TFG - DAM\\Web\\WebLeagueManager\\WebLeagueManager.csproj",
+      "projectUniqueName": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\WebLeagueManager.csproj",
       "projectName": "WebLeagueManager",
-      "projectPath": "D:\\TFG - DAM\\Web\\WebLeagueManager\\WebLeagueManager.csproj",
+      "projectPath": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\WebLeagueManager.csproj",
       "packagesPath": "C:\\Users\\hr\\.nuget\\packages\\",
-      "outputPath": "D:\\TFG - DAM\\Web\\WebLeagueManager\\obj\\",
+      "outputPath": "C:\\Users\\hr\\source\\repos\\WebLeagueManager\\WebLeagueManager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hr\\AppData\\Roaming\\NuGet\\NuGet.Config",
